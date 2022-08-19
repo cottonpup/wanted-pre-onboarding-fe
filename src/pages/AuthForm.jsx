@@ -9,7 +9,6 @@ export default function AuthForm(props) {
   const passwordInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
   const authCtx = useContext(AuthContext);
 
   const switchAuthModeHandler = (event) => {
@@ -55,8 +54,10 @@ export default function AuthForm(props) {
         }
       })
       .then((data) => {
-        authCtx.login(data.access_token);
-        navigate('/todo');
+        if (isLogin) {
+          authCtx.login(data.access_token);
+          navigate('/todo');
+        }
       })
       .catch((err) => {
         alert(err.message);

@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import Layout from '../components/Layout';
 import AuthContext from '../store/auth-context';
 
 export default function Todos() {
@@ -8,9 +9,140 @@ export default function Todos() {
     authCtx.logout();
   };
   return (
-    <>
-      <h1>TODOS</h1>
-      {isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
-    </>
+    <Layout>
+      <div class="bg-white">
+        <div class="relative z-10 flex items-baseline justify-between pb-6 border-b border-gray-200">
+          <h1 class="text-4xl font-bold tracking-tight text-gray-900">Todo List</h1>
+          {isLoggedIn && (
+            <button
+              className="group relative w-20 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={logoutHandler}
+            >
+              Logout
+            </button>
+          )}
+        </div>
+
+        <form class="hidden lg:block">
+          <div class="border-b border-gray-200 py-6">
+            <h3 class="-my-3 flow-root">
+              <button
+                type="button"
+                class="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500"
+                aria-controls="filter-section-2"
+                aria-expanded="false"
+              >
+                <span class="font-medium text-gray-900"> Size </span>
+                <span class="ml-6 flex items-center">
+                  <svg
+                    class="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+
+                  <svg
+                    class="h-5 w-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </h3>
+
+            <div class="pt-6" id="filter-section-2">
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <input
+                    id="filter-size-0"
+                    value="2l"
+                    type="checkbox"
+                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <label for="filter-size-0" class="ml-3 text-sm text-gray-600">
+                    2L
+                  </label>
+                </div>
+
+                <div class="flex items-center">
+                  <input
+                    id="filter-size-1"
+                    value="6l"
+                    type="checkbox"
+                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <label for="filter-size-1" class="ml-3 text-sm text-gray-600">
+                    6L
+                  </label>
+                </div>
+
+                <div class="flex items-center">
+                  <input
+                    id="filter-size-2"
+                    value="12l"
+                    type="checkbox"
+                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <label for="filter-size-2" class="ml-3 text-sm text-gray-600">
+                    12L
+                  </label>
+                </div>
+
+                <div class="flex items-center">
+                  <input
+                    id="filter-size-3"
+                    value="18l"
+                    type="checkbox"
+                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <label for="filter-size-3" class="ml-3 text-sm text-gray-600">
+                    18L
+                  </label>
+                </div>
+
+                <div class="flex items-center">
+                  <input
+                    id="filter-size-4"
+                    value="20l"
+                    type="checkbox"
+                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <label for="filter-size-4" class="ml-3 text-sm text-gray-600">
+                    20L
+                  </label>
+                </div>
+
+                <div class="flex items-center">
+                  <input
+                    id="filter-size-5"
+                    value="40l"
+                    type="checkbox"
+                    class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <label for="filter-size-5" class="ml-3 text-sm text-gray-600">
+                    40L
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </Layout>
   );
 }
