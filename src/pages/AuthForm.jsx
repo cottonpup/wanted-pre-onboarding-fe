@@ -1,11 +1,16 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout.jsx';
+import AuthContext from '../store/auth-context.js';
 
 export default function AuthForm(props) {
+  const navigate = useNavigate();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  const authCtx = useContext(AuthContext);
 
   const switchAuthModeHandler = (event) => {
     event.preventDefault();
@@ -50,9 +55,8 @@ export default function AuthForm(props) {
         }
       })
       .then((data) => {
-        if (isLogin) {
-          props.handleAuthToken(data.access_token);
-        }
+        authCtx.login(data.access_token);
+        navigate('/todo');
       })
       .catch((err) => {
         alert(err.message);

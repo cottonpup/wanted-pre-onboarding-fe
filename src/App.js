@@ -1,29 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import AuthForm from './pages/AuthForm';
 import Todos from './pages/Todos';
 import './App.css';
+import AuthContext from './store/auth-context';
+import { useContext } from 'react';
 
 function App() {
-  const [token, setToken] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    window.localStorage.setItem('access_token', token);
-    const savedToken = window.localStorage.getItem('access_token');
-    console.log(savedToken);
-    if (savedToken) {
-      navigate('/todo');
-    } else {
-      navigate('/');
-    }
-  }, [token, navigate]);
-
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<AuthForm handleAuthToken={setToken} />} />
-        <Route path="/todo" element={<Todos />} />
+        <Route path="/" element={!isLoggedIn ? <AuthForm /> : <Navigate to="/todo" />} />
+        <Route path="/todo" element={isLoggedIn ? <Todos /> : <Navigate to="/" />} />
       </Routes>
     </div>
   );
