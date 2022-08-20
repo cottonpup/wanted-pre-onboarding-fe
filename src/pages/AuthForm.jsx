@@ -57,6 +57,8 @@ export default function AuthForm() {
         if (isLogin) {
           authCtx.login(data.access_token);
           navigate('/todo');
+        } else {
+          alert('계정 생성이 완료되었습니다.');
         }
       } else {
         throw new Error(data.message);
