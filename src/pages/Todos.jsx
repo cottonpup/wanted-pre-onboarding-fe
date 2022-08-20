@@ -31,6 +31,13 @@ export default function Todos() {
     setTodos(filteredTodoList);
   };
 
+  const editTodoItem = (e, changedText, selectedItem) => {
+    e.preventDefault();
+    const filteredTodoList = todos.filter((todo) => todo.id !== selectedItem.id);
+    selectedItem.text = changedText;
+    setTodos([...filteredTodoList, selectedItem]);
+  };
+
   return (
     <Layout>
       <div className="bg-white">
@@ -50,7 +57,12 @@ export default function Todos() {
           <div className="border-b border-gray-200 py-6 space-y-4">
             {todos &&
               todos.map((todo) => (
-                <TodoListItem key={todo.id} item={todo} removeTodoItem={removeTodoItem} />
+                <TodoListItem
+                  key={todo.id}
+                  item={todo}
+                  removeTodoItem={removeTodoItem}
+                  editTodoItem={editTodoItem}
+                />
               ))}
             <div className="form-control">
               <div className="input-group">
