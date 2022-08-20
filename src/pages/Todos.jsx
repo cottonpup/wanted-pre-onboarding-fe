@@ -33,9 +33,13 @@ export default function Todos() {
 
   const editTodoItem = (e, changedText, selectedItem) => {
     e.preventDefault();
-    const filteredTodoList = todos.filter((todo) => todo.id !== selectedItem.id);
-    selectedItem.text = changedText;
-    setTodos([...filteredTodoList, selectedItem]);
+    const mutatedTodoList = todos.map((todo) => {
+      if (todo.id !== selectedItem.id) {
+        selectedItem.text = changedText;
+      }
+      return todos;
+    });
+    setTodos(...mutatedTodoList);
   };
 
   return (
