@@ -25,84 +25,8 @@ export default function Todos() {
 
         <form className="hidden lg:block">
           <div className="border-b border-gray-200 py-6">
-            <h3 className="-my-3 flow-root">
-              <button
-                type="button"
-                className="py-3 bg-white w-full flex items-center justify-between text-sm text-gray-400 hover:text-gray-500"
-                aria-controls="filter-section-2"
-                aria-expanded="false"
-              >
-                <span className="font-medium text-gray-900"> Size </span>
-                <span className="ml-6 flex items-center">
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-
-                  <svg
-                    className="h-5 w-5"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </h3>
-
-            <div className="pt-6" id="filter-section-2">
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <input
-                    id="filter-size-0"
-                    value="2l"
-                    type="checkbox"
-                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <label htmlFor="filter-size-0" className="ml-3 text-sm text-gray-600">
-                    2L
-                  </label>
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    id="filter-size-1"
-                    value="6l"
-                    type="checkbox"
-                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <label htmlFor="filter-size-1" className="ml-3 text-sm text-gray-600">
-                    6L
-                  </label>
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    id="filter-size-2"
-                    value="12l"
-                    type="checkbox"
-                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <label htmlFor="filter-size-2" className="ml-3 text-sm text-gray-600">
-                    12L
-                  </label>
-                </div>
-
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-2 hover:bg-slate-100 rounded-sm">
                 <div className="flex items-center">
                   <input
                     id="filter-size-3"
@@ -110,35 +34,65 @@ export default function Todos() {
                     type="checkbox"
                     className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
                   />
-                  <label htmlFor="filter-size-3" className="ml-3 text-sm text-gray-600">
+                  <label
+                    htmlFor="filter-size-3"
+                    className="ml-3 text-sm text-gray-600 line-through"
+                  >
                     18L
                   </label>
                 </div>
-
                 <div className="flex items-center">
-                  <input
-                    id="filter-size-4"
-                    value="20l"
-                    type="checkbox"
-                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <label htmlFor="filter-size-4" className="ml-3 text-sm text-gray-600">
-                    20L
-                  </label>
+                  <button className="flex items-center">
+                    <svg
+                      className="inline-block h-4 w-4 fill-[#9ca3af] hover:fill-indigo-600"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path>
+                    </svg>
+                  </button>
+                  <button className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 stroke-[#9ca3af] hover:stroke-indigo-600"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="3"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
                 </div>
+              </div>
 
-                <div className="flex items-center">
+              <div className="form-control">
+                <div className="input-group">
                   <input
-                    id="filter-size-5"
-                    value="40l"
-                    type="checkbox"
-                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"
+                    type="text"
+                    placeholder="내용을 입력하세요."
+                    className="input input-bordered w-full"
                   />
-                  <label htmlFor="filter-size-5" className="ml-3 text-sm text-gray-600">
-                    40L
-                  </label>
+                  <button className="btn">
+                    <svg
+                      className="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
                 </div>
-
               </div>
             </div>
           </div>
