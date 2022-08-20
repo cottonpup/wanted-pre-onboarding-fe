@@ -16,11 +16,14 @@ export default function AuthForm(props) {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-
     const enteredEmail = emailInputRef.current.value;
-    const enteredPasswordl = passwordInputRef.current.value;
+    const emailPattern = /^[\w]+@[\w]+\.\w{2,4}/g;
+    const isEmailValid = emailPattern.test(enteredEmail);
+    const passwordPattern = /^[\w\d]{8,}/g;
+    const enteredPassword = passwordInputRef.current.value;
+    const isPasswordValid = passwordPattern.test(enteredPassword);
 
     setIsLoading(true);
 
@@ -33,35 +36,36 @@ export default function AuthForm(props) {
         'https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/auth/signup';
     }
 
-    fetch(url, {
+    const options = {
       method: 'POST',
       body: JSON.stringify({
         email: enteredEmail,
-        password: enteredPasswordl,
+        password: enteredPassword,
       }),
       headers: {
         'Content-Type': 'application/json',
       },
-    })
-      .then((res) => {
-        setIsLoading(false);
-        if (res.ok) {
-          return res.json();
-        } else {
-          return res.json().then((data) => {
-            throw new Error(data.message);
-          });
-        }
-      })
-      .then((data) => {
+    };
+
+    try {
+      if (!isEmailValid) {
+        throw new Error('이메일이 정확하지 않습니다. 반드시 @');
+      }
+
+      const res = await fetch(url, options);
+      const data = await res.json();
+      setIsLoading(false);
+      if (res.ok) {
         if (isLogin) {
           authCtx.login(data.access_token);
           navigate('/todo');
         }
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
