@@ -25,7 +25,11 @@ export default function Todos() {
     ]);
     enteredNewText.current.value = '';
   };
-  console.log(todos);
+  const removeTodoItem = (e, selectedItem) => {
+    e.preventDefault();
+    const filteredTodoList = todos.filter((todo) => todo.id !== selectedItem.id);
+    setTodos(filteredTodoList);
+  };
 
   return (
     <Layout>
@@ -45,7 +49,9 @@ export default function Todos() {
         <form className="hidden lg:block">
           <div className="border-b border-gray-200 py-6 space-y-4">
             {todos &&
-              todos.map((todo) => <TodoListItem text={todo.text} key={todo.id} />)}
+              todos.map((todo) => (
+                <TodoListItem key={todo.id} item={todo} removeTodoItem={removeTodoItem} />
+              ))}
             <div className="form-control">
               <div className="input-group">
                 <input
