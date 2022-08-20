@@ -1,15 +1,24 @@
-import { useState, useRef, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout.jsx';
 import AuthContext from '../store/auth-context.js';
 
-export default function AuthForm(props) {
+export default function AuthForm() {
   const navigate = useNavigate();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
+  const [isInputValid, setIsInputValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const authCtx = useContext(AuthContext);
+  const [enteredEmail, setEnteredEmail] = useState('');
+  const [enteredPassword, setEnteredPassword] = useState('');
+
+  useEffect(() => {
+    const emailPattern = /^[\w]+@[\w]+\.\w{2,4}/g;
+    const passwordPattern = /^[\w\d]{8,}/g;
+    const validation =
+      emailPattern.test(enteredEmail) && passwordPattern.test(enteredPassword);
+    setIsInputValid(validation);
+  }, [enteredEmail, enteredPassword]);
 
   const switchAuthModeHandler = (event) => {
     event.preventDefault();
@@ -18,13 +27,6 @@ export default function AuthForm(props) {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const enteredEmail = emailInputRef.current.value;
-    const emailPattern = /^[\w]+@[\w]+\.\w{2,4}/g;
-    const isEmailValid = emailPattern.test(enteredEmail);
-    const passwordPattern = /^[\w\d]{8,}/g;
-    const enteredPassword = passwordInputRef.current.value;
-    const isPasswordValid = passwordPattern.test(enteredPassword);
-
     setIsLoading(true);
 
     let url;
@@ -48,13 +50,9 @@ export default function AuthForm(props) {
     };
 
     try {
-      if (!isEmailValid) {
-        throw new Error('이메일이 정확하지 않습니다. 반드시 @');
-      }
-
+      setIsLoading(false);
       const res = await fetch(url, options);
       const data = await res.json();
-      setIsLoading(false);
       if (res.ok) {
         if (isLogin) {
           authCtx.login(data.access_token);
@@ -82,7 +80,7 @@ export default function AuthForm(props) {
             <input
               id="email"
               name="email"
-              ref={emailInputRef}
+              onChange={(e) => setEnteredEmail(e.target.value)}
               type="email"
               autoComplete="email"
               required
@@ -97,7 +95,7 @@ export default function AuthForm(props) {
             <input
               id="password"
               name="password"
-              ref={passwordInputRef}
+              onChange={(e) => setEnteredPassword(e.target.value)}
               type="password"
               autoComplete="password"
               required
@@ -117,7 +115,8 @@ export default function AuthForm(props) {
         {!isLoading && (
           <button
             type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={!isInputValid}
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
           >
             {isLogin ? '로그인' : '계정 생성하기'}
           </button>
