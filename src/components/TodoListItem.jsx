@@ -55,13 +55,16 @@ export default function TodoListItem(props) {
       </div>
 
       {isEditMode ? (
-        <div className="flex items-center" onClick={handleEditTodoItem}>
-          <button className="mr-1 text-xs text-gray-600 inline-flex items-center px-2 py-1 border border-gray-300 rounded-md shadow-sm bg-white">
+        <div className="flex items-center">
+          <button
+            className="mr-1 text-xs text-gray-600 inline-flex items-center px-2 py-1 border border-gray-300 rounded-md shadow-sm bg-white"
+            onClick={handleEditTodoItem}
+          >
             Save
           </button>
           <button
             className=" text-xs text-gray-600 inline-flex items-center px-2 py-1 border border-gray-300 rounded-md shadow-sm bg-white"
-            onClick={() => setIsEditMode(!isEditMode)}
+            onClick={changeEditMode}
           >
             Cancel
           </button>
